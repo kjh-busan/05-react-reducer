@@ -8,8 +8,7 @@ const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: action.val.includes("@") };
   } else if (action.type === "USER_BLUR") {
-    console.log("email blur reducer", action.isValid);
-    return { value: state.value, isValid: state.isValid };
+    return { value: state.value, isValid: state.value.includes("@") };
   }
   return { value: "", isValid: false };
 };
@@ -18,15 +17,12 @@ const passwordReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
     return { value: action.val, isValid: action.val.trim().length > 6 };
   } else if (action.type === "USER_BLUR") {
-    console.log("password blur reducer", action.isValid);
-    return { value: state.value, isValid: state.isValid };
+    return { value: state.value, isValid: state.value.trim().length > 6 };
   }
   return { value: "", isValid: false };
 };
 
 const Login = (props) => {
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
